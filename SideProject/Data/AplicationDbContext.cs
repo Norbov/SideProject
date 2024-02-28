@@ -1,0 +1,16 @@
+﻿using Microsoft.EntityFrameworkCore;
+using SideProject.Models.Entities;
+
+
+namespace SideProject.Data
+{
+    public class AplicationDbContext : DbContext
+    {
+        public AplicationDbContext(DbContextOptions<AplicationDbContext> options): base(options)
+        {
+            
+        }
+
+        public DbSet<User> users { get; set; }
+    }
+}
