@@ -83,6 +83,19 @@ namespace SideProject.Controllers
             }
             return RedirectToAction("GetAllUser", "User");
         }
+
+        [HttpPost]
+        public async Task<IActionResult> Delete(User viewModel)
+        {
+            var user = await _context.users.AsNoTracking().FirstOrDefaultAsync(x => x.Id == viewModel.Id);
+            if(user != null)
+            {
+                _context.users.Remove(user);
+                await _context.SaveChangesAsync();
+            }
+
+            return RedirectToAction("GetAllUser", "User");
+        }
         /*[HttpGet]
         public async Task<ActionResult<List<User>>> GetAllUser()
         {
