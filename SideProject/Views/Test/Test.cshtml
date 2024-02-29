@@ -3,12 +3,16 @@
 *@
 @{
 }
+
 @model SideProject.Models.Test
+
 <h1>Test</h1>
-<form method="post" action="/Test/Test" enctype="multipart/form-data">
+
+<!--<form method="post" action="/Test/Test" enctype="multipart/form-data">-->
+<form method="post" action="/Test/Test">
     <div class="mt-3">
         <label class="form-label">Integer</label>
-        <input type="text" class="form-control" asp-for="integer" />
+        <input type="number" class="form-control" asp-for="integer" />
     </div>
 
     <div class="mt-3">

@@ -9,8 +9,8 @@ using SideProject.Models.Entities;
 
 namespace SideProject.Controllers
 {
-    [Route("[controller]")]
-    [ApiController]
+    //[Route("[controller]")]
+    //  [ApiController]
     public class UserController : Controller
     {
         private readonly AplicationDbContext _context;
@@ -30,7 +30,7 @@ namespace SideProject.Controllers
         }*/
 
         [HttpGet]
-        [Route("Add", Name = "Add")]
+        //[Route("Add", Name = "Add")]
         public IActionResult Add()
         {
 
@@ -39,7 +39,7 @@ namespace SideProject.Controllers
         }
 
         [HttpPost]
-        [Route("Add", Name = "Add")]
+        //[Route("Add", Name = "Add")]
         public async Task<IActionResult> Add(AddUserViewModel viewModel)
         {
             var user = new User
@@ -53,7 +53,7 @@ namespace SideProject.Controllers
         }
 
         [HttpGet]
-        [Route("Users", Name = "GetAllUser")]
+        //[Route("Users", Name = "GetAllUser")]
         public async Task<IActionResult> GetAllUser()
         {
             var users = await _context.users.ToListAsync();
@@ -69,7 +69,7 @@ namespace SideProject.Controllers
         }
 
         [HttpPost]
-        [Route("Users", Name = "Edit")]
+        //[Route("Users", Name = "Edit")]
         public async Task<IActionResult> Edit(User viewModel)
         {
             var user = await _context.users.FindAsync(viewModel.Id);

@@ -5,21 +5,22 @@ using SideProject.Models;
 
 namespace SideProject.Controllers
 {
-    [Route("[controller]")]
-    [ApiController]
+    //[Route("[controller]")]
+    //[ApiController]
     public class TestController : Controller
     {
         [HttpGet]
-        [Route("Test", Name = "Test")]
+        //[Route("Test", Name = "Test")]
         public IActionResult Test()
         {
             return View();
         }
 
         [HttpPost]
-        [Route("Test", Name = "Test")]
-        public IActionResult Test(Test testviewmodel)
+        //[Route("Test", Name = "Test")]
+        public IActionResult Test(Test testviewmodel /*AddUserViewModel testviewmodel*/)
         {
+            Console.WriteLine("Siker " + testviewmodel.integer /*testviewmodel.name*/);
             return View();
         }
     }
