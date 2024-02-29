@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Conventions;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using SideProject.Data;
 using SideProject.Models;
@@ -12,12 +13,12 @@ namespace SideProject.Controllers
     [ApiController]
     public class UserController : Controller
     {
-        /*private readonly AplicationDbContext _context;
+        private readonly AplicationDbContext _context;
 
         public UserController(AplicationDbContext context)
         {
             _context = context;
-        }*/
+        }
 
         /*[HttpPost]
         public async Task<ActionResult<List<User>>>AddUser2(User user)
@@ -39,11 +40,49 @@ namespace SideProject.Controllers
 
         [HttpPost]
         [Route("Add", Name = "Add")]
-        public IActionResult Add(AddUserViewModel viewModel)
+        public async Task<IActionResult> Add(AddUserViewModel viewModel)
         {
+            var user = new User
+            {
+                name = viewModel.name,
+                email = viewModel.email
+            };
+            await _context.users.AddAsync(user);
+            await _context.SaveChangesAsync();
             return View();
         }
 
+        [HttpGet]
+        [Route("Users", Name = "GetAllUser")]
+        public async Task<IActionResult> GetAllUser()
+        {
+            var users = await _context.users.ToListAsync();
+            return View(users);
+        }
+
+        [HttpGet]
+        //[Route("Users", Name = "Edit")]
+        public async Task<IActionResult> Edit(Guid id)
+        {
+            var user = await _context.users.FindAsync(id);
+            return View(user);
+        }
+
+        [HttpPost]
+        [Route("Users", Name = "Edit")]
+        public async Task<IActionResult> Edit(User viewModel)
+        {
+            var user = await _context.users.FindAsync(viewModel.Id);
+            
+            if(user != null)
+            {
+                user.name = viewModel.name;
+                user.email = viewModel.email;
+
+                await _context.SaveChangesAsync();
+            }
+            return RedirectToAction("GetAllUser", "User");
+        }
         /*[HttpGet]
         public async Task<ActionResult<List<User>>> GetAllUser()
         {

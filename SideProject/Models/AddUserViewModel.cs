@@ -2,7 +2,7 @@
 {
     public class AddUserViewModel
     {
-        public string Name { get; set; }
-        public string Email { get; set; }
+        public string name { get; set; }
+        public string email { get; set; }
     }
 }

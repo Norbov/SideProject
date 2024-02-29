@@ -1,0 +1,30 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+@model List<SideProject.Models.Entities.User>
+
+<h1>Users</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model)
+        {
+            <tr>
+                <td>@user.name</td>
+                <td>@user.email</td>
+                <td>
+                    <a class="btn btn-primary" asp-controller="User" asp-action="Edit" accesskey="@user.Id">Edit</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
