@@ -22,7 +22,7 @@
                 <td>@user.name</td>
                 <td>@user.email</td>
                 <td>
-                    <a class="btn btn-primary" asp-controller="User" asp-action="Edit" accesskey="@user.Id">Edit</a>
+                    <a class="btn btn-primary" asp-controller="User" asp-action="Edit" asp-route-id="@user.Id">Edit</a>
                 </td>
             </tr>
         }
