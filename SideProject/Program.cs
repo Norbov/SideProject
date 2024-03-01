@@ -1,11 +1,13 @@
 using Microsoft.EntityFrameworkCore;
 using SideProject.Data;
+using SideProject.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<AplicationDbContext>(option => option.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
+//builder.Services.AddTransient<IAccountRepository, AccountRepository>();
 
 var app = builder.Build();
 
