@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Conventions;
@@ -11,6 +12,7 @@ namespace SideProject.Controllers
 {
     //[Route("[controller]")]
     //  [ApiController]
+    [Authorize]
     public class UserController : Controller
     {
         private readonly AplicationDbContext _context;

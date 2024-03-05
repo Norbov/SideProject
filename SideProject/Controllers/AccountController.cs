@@ -3,6 +3,8 @@ using SideProject.Data;
 using SideProject.Models;
 using SideProject.Models.Entities;
 using SideProject.Repository;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 
 namespace SideProject.Controllers
 {
@@ -17,13 +19,34 @@ namespace SideProject.Controllers
         }
 
 
-
+        [HttpGet]
         public IActionResult Login()
         {
             return View();
         }
+
+        [HttpPost]
+        public async Task<IActionResult> Login(ApplicationUser applicationUser)
+        {
+            var account = await _context.accounts.FindAsync(applicationUser.userName);
+            if (account != null && applicationUser.password == account.password)
+            {
+                Console.WriteLine("Found " + applicationUser.userName);
+            }
+            return RedirectToAction("Index", "Home");
+        }
+
+        [HttpGet]
+        public IActionResult Register()
+        {
+
+            return View();
+        }
+
+        [HttpPost]
         public async Task<IActionResult> Register(SignUpModel signUpModel)
         {
+            Console.WriteLine("Test");
             var account = new ApplicationUser()
             {
                 userName = signUpModel.userName,
@@ -34,7 +57,7 @@ namespace SideProject.Controllers
             await _context.accounts.AddAsync(account);
             await _context.SaveChangesAsync();
 
-            return View();
+            return RedirectToAction("Login", "Account");
         }
 
         /*[HttpPost]
