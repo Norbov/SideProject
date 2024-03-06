@@ -5,6 +5,11 @@ using SideProject.Models.Entities;
 using SideProject.Repository;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
+using System.IdentityModel.Tokens;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+using System.IdentityModel.Tokens.Jwt;
 
 namespace SideProject.Controllers
 {
@@ -12,10 +17,32 @@ namespace SideProject.Controllers
     {
         //public readonly IAccountRepository _accountRepository;
         private readonly AplicationDbContext _context;
-        public AccountController(/*IAccountRepository accountRepository*/AplicationDbContext context)
+        private readonly IConfiguration _configuration;
+        readonly IAuthorizationHeaderProvider authorizationHeaderProvider;
+        public AccountController(/*IAccountRepository accountRepository*/AplicationDbContext context, IConfiguration configuration)
         {
             //_accountRepository = accountRepository;
             _context = context;
+            _configuration = configuration;
+        }
+
+        private string CreateToken(ApplicationUser applicationUser)
+        {
+            List<Claim> claims = new List<Claim>()
+            {
+                new Claim(ClaimTypes.Name, applicationUser.userName)
+            };
+
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration.GetSection("Jwt:Key").Value!));
+            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
+            var token = new JwtSecurityToken(
+                claims: claims,
+                expires: DateTime.Now.AddDays(1),
+                signingCredentials: creds
+                );
+
+            var jwt  = new JwtSecurityTokenHandler().WriteToken(token);
+            return jwt;
         }
 
 
@@ -31,7 +58,9 @@ namespace SideProject.Controllers
             var account = await _context.accounts.FindAsync(applicationUser.userName);
             if (account != null && applicationUser.password == account.password)
             {
+                string token = CreateToken(applicationUser);
                 Console.WriteLine("Found " + applicationUser.userName);
+                Console.WriteLine("Token " + token);
             }
             return RedirectToAction("Index", "Home");
         }

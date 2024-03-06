@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace SideProject.Models.Entities
 {
-    public class ApplicationUser : IdentityUser<Guid>
+    public class ApplicationUser /*: IdentityUser<int>*/
     {
         [Key]
         public string userName { get; set; }
@@ -12,6 +12,9 @@ namespace SideProject.Models.Entities
         [Required]
         public string password { get; set; }
 
-        public virtual ICollection<IdentityUserRole<int>> Roles { get; } = new List<IdentityUserRole<int>>();
+        //string role { get; set; }
+
+
+        //public virtual ICollection<IdentityUserRole<int>> Roles { get; } = new List<IdentityUserRole<int>>();
     }
 }
