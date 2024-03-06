@@ -18,7 +18,7 @@ namespace SideProject.Controllers
         //public readonly IAccountRepository _accountRepository;
         private readonly AplicationDbContext _context;
         private readonly IConfiguration _configuration;
-        readonly IAuthorizationHeaderProvider authorizationHeaderProvider;
+
         public AccountController(/*IAccountRepository accountRepository*/AplicationDbContext context, IConfiguration configuration)
         {
             //_accountRepository = accountRepository;
