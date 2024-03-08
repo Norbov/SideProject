@@ -13,5 +13,7 @@ namespace SideProject.Data
 
         public DbSet<User> users { get; set; }
         public DbSet<ApplicationUser> accounts { get; set; }
+        public DbSet<UploadedDatas> uploads { get; set; }
+        public DbSet<Image> images { get; set; }
     }
 }

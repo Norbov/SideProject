@@ -12,14 +12,18 @@ namespace SideProject.Controllers
 {
     //[Route("[controller]")]
     //  [ApiController]
-    [Authorize]
+    //[Authorize]
     public class UserController : Controller
     {
         private readonly AplicationDbContext _context;
+        private readonly IHttpContextAccessor _contextAccessor;
 
-        public UserController(AplicationDbContext context)
+        public UserController(AplicationDbContext context, IHttpContextAccessor contextAccessor)
         {
             _context = context;
+            _contextAccessor = contextAccessor;
+
+            var token = _contextAccessor.HttpContext.Request.Cookies[Constans.AccessToken];
         }
 
         /*[HttpPost]

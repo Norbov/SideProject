@@ -61,6 +61,7 @@ namespace SideProject.Controllers
                 string token = CreateToken(applicationUser);
                 Console.WriteLine("Found " + applicationUser.userName);
                 Console.WriteLine("Token " + token);
+                Response.Cookies.Append(Constans.AccessToken,token);
             }
             return RedirectToAction("Index", "Home");
         }
