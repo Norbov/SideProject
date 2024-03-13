@@ -39,7 +39,8 @@ builder.Services.AddAuthorization();
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<AplicationDbContext>(option => option.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
-//builder.Services.AddTransient<IAccountRepository, AccountRepository>();
+
+//builder.Services.AddScoped<IAccountRepository, AccountRepository>();
 
 var app = builder.Build();
 

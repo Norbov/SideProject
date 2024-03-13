@@ -8,7 +8,7 @@ namespace SideProject.Models.Entities
         [Key]
         public int Id { get; set; }
 
-        public UploadedDatas uploader { get; set; }
+        //public UploadedDatas uploader { get; set; }
         public fileFormat fileFormat { get; set; }
         public byte[] image { get; set; }
     }

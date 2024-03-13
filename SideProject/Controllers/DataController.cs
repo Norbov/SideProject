@@ -30,7 +30,7 @@ namespace SideProject.Controllers
         {
             var image = new Image
             {
-                uploader = viewModel.uploader,
+                //uploader = viewModel.uploader,
                 fileFormat = viewModel.fileFormat,
                 image = viewModel.image
             };

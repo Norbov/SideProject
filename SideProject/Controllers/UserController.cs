@@ -12,7 +12,7 @@ namespace SideProject.Controllers
 {
     //[Route("[controller]")]
     //  [ApiController]
-    //[Authorize]
+    [Authorize]
     public class UserController : Controller
     {
         private readonly AplicationDbContext _context;
@@ -23,7 +23,7 @@ namespace SideProject.Controllers
             _context = context;
             _contextAccessor = contextAccessor;
 
-            var token = _contextAccessor.HttpContext.Request.Cookies[Constans.AccessToken];
+            //var token = _contextAccessor.HttpContext.Request.Cookies[Constans.AccessToken];
         }
 
         /*[HttpPost]
@@ -63,7 +63,8 @@ namespace SideProject.Controllers
         public async Task<IActionResult> GetAllUser()
         {
             var users = await _context.users.ToListAsync();
-            return View(users);
+            return Ok(users);
+            //return View(users);
         }
 
         [HttpGet]
