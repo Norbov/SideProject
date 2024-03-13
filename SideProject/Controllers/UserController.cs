@@ -16,12 +16,12 @@ namespace SideProject.Controllers
     public class UserController : Controller
     {
         private readonly AplicationDbContext _context;
-        private readonly IHttpContextAccessor _contextAccessor;
+        //private readonly IHttpContextAccessor _contextAccessor;
 
-        public UserController(AplicationDbContext context, IHttpContextAccessor contextAccessor)
+        public UserController(AplicationDbContext context/*, IHttpContextAccessor contextAccessor*/)
         {
             _context = context;
-            _contextAccessor = contextAccessor;
+            //_contextAccessor = contextAccessor;
 
             //var token = _contextAccessor.HttpContext.Request.Cookies[Constans.AccessToken];
         }
@@ -37,6 +37,7 @@ namespace SideProject.Controllers
 
         [HttpGet]
         //[Route("Add", Name = "Add")]
+        [AllowAnonymous]
         public IActionResult Add()
         {
 
@@ -45,6 +46,7 @@ namespace SideProject.Controllers
         }
 
         [HttpPost]
+        [AllowAnonymous]
         //[Route("Add", Name = "Add")]
         public async Task<IActionResult> Add(AddUserViewModel viewModel)
         {

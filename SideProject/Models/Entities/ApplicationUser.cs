@@ -12,7 +12,7 @@ namespace SideProject.Models.Entities
         [Required]
         public string password { get; set; }
 
-        //public string Role { get; set; }
+        public string Role { get; set; }
 
 
         //public virtual ICollection<IdentityUserRole<int>> Roles { get; } = new List<IdentityUserRole<int>>();

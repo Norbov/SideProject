@@ -96,7 +96,8 @@ namespace SideProject.Controllers
             {
                 userName = signUpModel.userName,
                 email = signUpModel.email,
-                password = signUpModel.password
+                password = signUpModel.password,
+                Role = "User"
             };
 
             await _context.accounts.AddAsync(account);
