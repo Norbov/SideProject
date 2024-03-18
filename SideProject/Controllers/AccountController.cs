@@ -10,6 +10,7 @@ using System.IdentityModel.Tokens;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using System.IdentityModel.Tokens.Jwt;
+using SideProject.Service;
 
 namespace SideProject.Controllers
 {
@@ -18,12 +19,14 @@ namespace SideProject.Controllers
         //public readonly IAccountRepository _accountRepository;
         private readonly AplicationDbContext _context;
         private readonly IConfiguration _configuration;
+        private readonly IApplicationUserService _applicationUserService;
 
-        public AccountController(/*IAccountRepository accountRepository,*/AplicationDbContext context, IConfiguration configuration)
+        public AccountController(/*IAccountRepository accountRepository*/AplicationDbContext context, IConfiguration configuration, IApplicationUserService applicationUserService)
         {
             //_accountRepository = accountRepository;
             _context = context;
             _configuration = configuration;
+            _applicationUserService = applicationUserService;
         }
 
         private string CreateToken(ApplicationUser applicationUser)
@@ -40,16 +43,18 @@ namespace SideProject.Controllers
 
             var claims = new[]
             {
-                new Claim(ClaimTypes.Name, applicationUser.userName)
+                new Claim(ClaimTypes.Name, applicationUser.userName)//,
+                //new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
             };
 
-            var token = new JwtSecurityToken(_configuration["Jwt:Issuer"],
-                _configuration["Jwt:Audience"],
-                claims,
-                expires: DateTime.Now.AddDays(1),
-                signingCredentials: creds);
+            foreach (var userRole in applicationUser.roles)
+            {
+                claims.Add(new Claim(ClaimTypes.Role, userRole));
+            }
 
-            /*var token = new JwtSecurityToken(
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration.GetSection("Jwt:Key").Value!));
+            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
+            var token = new JwtSecurityToken(
                 claims: claims,
                 expires: DateTime.Now.AddDays(1),
                 signingCredentials: creds
@@ -92,7 +97,7 @@ namespace SideProject.Controllers
         [HttpPost]
         public async Task<IActionResult> Register(SignUpModel signUpModel)
         {
-            var account = new ApplicationUser()
+            /*var account = new ApplicationUser()
             {
                 userName = signUpModel.userName,
                 email = signUpModel.email,
@@ -101,7 +106,9 @@ namespace SideProject.Controllers
             };
 
             await _context.accounts.AddAsync(account);
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync();*/
+
+            await _applicationUserService.Create(signUpModel);
 
             return RedirectToAction("Login", "Account");
         }
