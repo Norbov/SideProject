@@ -11,7 +11,7 @@ using SideProject.Data;
 namespace SideProject.Migrations
 {
     [DbContext(typeof(AplicationDbContext))]
-    [Migration("20240313140424_Initial")]
+    [Migration("20240318091633_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -25,15 +25,15 @@ namespace SideProject.Migrations
                     b.Property<string>("userName")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Role")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
                     b.Property<string>("email")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("password")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("roles")
                         .IsRequired()
                         .HasColumnType("TEXT");
 

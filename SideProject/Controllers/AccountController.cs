@@ -17,53 +17,17 @@ namespace SideProject.Controllers
     public class AccountController : Controller
     {
         //public readonly IAccountRepository _accountRepository;
-        private readonly AplicationDbContext _context;
-        private readonly IConfiguration _configuration;
+        //private readonly AplicationDbContext _context;
+        //private readonly IConfiguration _configuration;
         private readonly IApplicationUserService _applicationUserService;
 
-        public AccountController(/*IAccountRepository accountRepository*/AplicationDbContext context, IConfiguration configuration, IApplicationUserService applicationUserService)
+        public AccountController(/*IAccountRepository accountRepository*//*AplicationDbContext context, IConfiguration configuration,*/ IApplicationUserService applicationUserService)
         {
             //_accountRepository = accountRepository;
-            _context = context;
-            _configuration = configuration;
+            //_context = context;
+            //_configuration = configuration;
             _applicationUserService = applicationUserService;
         }
-
-        private string CreateToken(ApplicationUser applicationUser)
-        {
-            /*List<Claim> claims = new List<Claim>()
-            {
-                
-            };*/
-
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
-            //var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration.GetSection("Jwt:Key").Value!));
-            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-            //var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
-
-            var claims = new[]
-            {
-                new Claim(ClaimTypes.Name, applicationUser.userName)//,
-                //new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
-            };
-
-            foreach (var userRole in applicationUser.roles)
-            {
-                claims.Add(new Claim(ClaimTypes.Role, userRole));
-            }
-
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration.GetSection("Jwt:Key").Value!));
-            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
-            var token = new JwtSecurityToken(
-                claims: claims,
-                expires: DateTime.Now.AddDays(1),
-                signingCredentials: creds
-                );*/
-
-            var jwt  = new JwtSecurityTokenHandler().WriteToken(token);
-            return jwt;
-        }
-
 
         [HttpGet]
         public IActionResult Login()
@@ -74,15 +38,22 @@ namespace SideProject.Controllers
         [HttpPost]
         public async Task<IActionResult> Login(ApplicationUser applicationUser)
         {
-            var account = await _context.accounts.FindAsync(applicationUser.userName);
+            /*var account = await _context.accounts.FindAsync(applicationUser.userName);
             if (account != null && applicationUser.password == account.password)
             {
-                string token = CreateToken(applicationUser);
+                string token = CreateToken(account);
                 Console.WriteLine("Found " + applicationUser.userName);
                 Console.WriteLine("Token " + token);
                 //Response.Cookies.Append(Constans.AccessToken,token);
                 return Ok(token);
+            }*/
+
+            string token = await _applicationUserService.Login(applicationUser);
+            if(token != null)
+            {
+                return Ok(token);
             }
+
             return RedirectToAction("Index", "Home");
             
         }

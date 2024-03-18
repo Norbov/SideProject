@@ -18,7 +18,7 @@ namespace SideProject.Migrations
                     userName = table.Column<string>(type: "TEXT", nullable: false),
                     email = table.Column<string>(type: "TEXT", nullable: false),
                     password = table.Column<string>(type: "TEXT", nullable: false),
-                    Role = table.Column<string>(type: "TEXT", nullable: false)
+                    roles = table.Column<string>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {

@@ -22,15 +22,15 @@ namespace SideProject.Migrations
                     b.Property<string>("userName")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Role")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
                     b.Property<string>("email")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("password")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("roles")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
