@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Diagnostics.CodeAnalysis;
 
 namespace SideProject.Models.Entities
 {
@@ -16,6 +17,7 @@ namespace SideProject.Models.Entities
         [ForeignKey("accounts")]
         public string user { get; set; }
 
+        [AllowNull]
         public virtual ApplicationUser applicationUser { get; set; }
     }
 }

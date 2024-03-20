@@ -59,6 +59,7 @@ builder.Services.AddDbContext<AplicationDbContext>(option => option.UseSqlite(bu
 //builder.Services.AddScoped<IAccountRepository, AccountRepository>();
 
 builder.Services.AddScoped<IApplicationUserService, ApplicationUserService>();
+builder.Services.AddScoped<IDataService, DataService>();
 
 var app = builder.Build();
 
