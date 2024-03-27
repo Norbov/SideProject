@@ -15,11 +15,56 @@ namespace SideProject.Migrations
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            modelBuilder.HasAnnotation("ProductVersion", "8.0.2");
+            modelBuilder.HasAnnotation("ProductVersion", "8.0.3");
 
             modelBuilder.Entity("SideProject.Models.Entities.ApplicationUser", b =>
                 {
                     b.Property<string>("userName")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("AccessFailedCount")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("EmailConfirmed")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Id")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("LockoutEnabled")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTimeOffset?>("LockoutEnd")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("NormalizedEmail")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("NormalizedUserName")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("PasswordHash")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("PhoneNumberConfirmed")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("SecurityStamp")
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("TwoFactorEnabled")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("UserName")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("email")
@@ -66,23 +111,6 @@ namespace SideProject.Migrations
                     b.ToTable("images");
                 });
 
-            modelBuilder.Entity("SideProject.Models.Entities.UploadedDatas", b =>
-                {
-                    b.Property<string>("aplicationUseruserName")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("imageId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("username")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.HasIndex("aplicationUseruserName");
-
-                    b.ToTable("uploads");
-                });
-
             modelBuilder.Entity("SideProject.Models.Entities.User", b =>
                 {
                     b.Property<Guid>("Id")
@@ -102,6 +130,33 @@ namespace SideProject.Migrations
                     b.ToTable("users");
                 });
 
+            modelBuilder.Entity("SideProject.Models.Entities.Video", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("applicationUseruserName")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("fileFormat")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("user")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<byte[]>("video")
+                        .IsRequired()
+                        .HasColumnType("BLOB");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("applicationUseruserName");
+
+                    b.ToTable("videos");
+                });
+
             modelBuilder.Entity("SideProject.Models.Entities.Image", b =>
                 {
                     b.HasOne("SideProject.Models.Entities.ApplicationUser", "applicationUser")
@@ -111,13 +166,13 @@ namespace SideProject.Migrations
                     b.Navigation("applicationUser");
                 });
 
-            modelBuilder.Entity("SideProject.Models.Entities.UploadedDatas", b =>
+            modelBuilder.Entity("SideProject.Models.Entities.Video", b =>
                 {
-                    b.HasOne("SideProject.Models.Entities.ApplicationUser", "aplicationUser")
+                    b.HasOne("SideProject.Models.Entities.ApplicationUser", "applicationUser")
                         .WithMany()
-                        .HasForeignKey("aplicationUseruserName");
+                        .HasForeignKey("applicationUseruserName");
 
-                    b.Navigation("aplicationUser");
+                    b.Navigation("applicationUser");
                 });
 #pragma warning restore 612, 618
         }

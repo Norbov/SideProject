@@ -1,8 +1,11 @@
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using SideProject.Data;
+using SideProject.Models.Entities;
+using SideProject.Models.DTO;
 using SideProject.Repository;
 using SideProject.Service;
 
@@ -55,6 +58,11 @@ builder.Services.AddAuthorization();
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<AplicationDbContext>(option => option.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
+/*builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
+    .AddEntityFrameworkStores<AplicationDbContext>();*/
+builder.Services.AddIdentity<ApplicationUser, Roles>()
+    .AddEntityFrameworkStores<AplicationDbContext>();
+    //.AddUserManager<UserManager>();
 
 //builder.Services.AddScoped<IAccountRepository, AccountRepository>();
 

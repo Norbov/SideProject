@@ -17,8 +17,8 @@ namespace SideProject.Repository
         {
             var user = new ApplicationUser()
             {
-                userName = signUpModel.userName,
-                email = signUpModel.email,
+                UserName = signUpModel.userName,
+                Email = signUpModel.email,
                 password = signUpModel.password
             };
 

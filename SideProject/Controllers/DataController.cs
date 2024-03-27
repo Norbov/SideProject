@@ -10,15 +10,15 @@ namespace SideProject.Controllers
 {
     public class DataController : Controller
     {
-        private readonly AplicationDbContext _context;
+        //private readonly AplicationDbContext _context;
         private readonly IDataService _dataService;
-        public readonly Microsoft.AspNetCore.Hosting.IWebHostEnvironment _iWebHostEnvironment;
+        //public readonly Microsoft.AspNetCore.Hosting.IWebHostEnvironment _iWebHostEnvironment;
 
-        public DataController(AplicationDbContext context, IDataService dataService, IWebHostEnvironment iWebHostEnvironment)
+        public DataController(/*AplicationDbContext context,*/ IDataService dataService/*, IWebHostEnvironment iWebHostEnvironment*/)
         {
-            _context = context;
+            //_context = context;
             _dataService = dataService;
-            _iWebHostEnvironment = iWebHostEnvironment;
+            //_iWebHostEnvironment = iWebHostEnvironment;
         }
         public IActionResult Index()
         {

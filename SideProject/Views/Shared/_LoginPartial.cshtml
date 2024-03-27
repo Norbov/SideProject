@@ -1,0 +1,32 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+﻿@using Microsoft.AspNetCore.Identity
+@using SideProject.Data
+@using SideProject.Models.Entities
+
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+<ul class="navbar-nav">
+    @if (SignInManager.IsSignedIn(User))
+    {
+    <li class="nav-item">
+        <form id="logoutForm" class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+            <button id="logout" type="submit" class="nav-link btn btn-link text-dark">Logout</button>
+        </form>
+    </li>
+    }
+    else
+    {
+    <li class="nav-item">
+        <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Login">Login</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Register">Register</a>
+    </li>
+    }
+</ul>

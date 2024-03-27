@@ -13,7 +13,9 @@ namespace SideProject.Data
 
         public DbSet<User> users { get; set; }
         public DbSet<ApplicationUser> accounts { get; set; }
-        public DbSet<UploadedDatas> uploads { get; set; }
+        //Relation table, depend on how foreign keys work, that it is needed or not
+        //public DbSet<UploadedDatas> uploads { get; set; }
         public DbSet<Image> images { get; set; }
+        public DbSet<Video> videos { get; set; }
     }
 }

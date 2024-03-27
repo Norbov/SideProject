@@ -11,6 +11,8 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using System.IdentityModel.Tokens.Jwt;
 using SideProject.Service;
+using Microsoft.AspNetCore.Identity;
+using System.Data;
 
 namespace SideProject.Controllers
 {
@@ -21,12 +23,18 @@ namespace SideProject.Controllers
         //private readonly IConfiguration _configuration;
         private readonly IApplicationUserService _applicationUserService;
 
-        public AccountController(/*IAccountRepository accountRepository*//*AplicationDbContext context, IConfiguration configuration,*/ IApplicationUserService applicationUserService)
+        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly SignInManager<ApplicationUser> _signInManager;
+
+        public AccountController(/*IAccountRepository accountRepository*//*AplicationDbContext context, IConfiguration configuration,*/ IApplicationUserService applicationUserService, UserManager<ApplicationUser> userManager,
+          SignInManager<ApplicationUser> signInManager)
         {
             //_accountRepository = accountRepository;
             //_context = context;
             //_configuration = configuration;
             _applicationUserService = applicationUserService;
+            _userManager = userManager;
+            _signInManager = signInManager;
         }
 
         [HttpGet]
@@ -79,9 +87,20 @@ namespace SideProject.Controllers
             await _context.accounts.AddAsync(account);
             await _context.SaveChangesAsync();*/
 
+            if (_userManager.Users.Any(u => u.UserName == signUpModel.userName || u.Email == signUpModel.email))
+            {
+                throw new ApplicationException("Username/Email already exists!");
+            }
+            var user = new ApplicationUser
+            {
+                UserName = signUpModel.userName,
+                Email = signUpModel.email
+            };
+
+            var result = await _userManager.CreateAsync(user, signUpModel.password);
             await _applicationUserService.Create(signUpModel);
 
-            return RedirectToAction("Login", "Account");
+            return result.Succeeded ? RedirectToAction("Login", "Account") : throw new ApplicationException("Registration failed!");
         }
 
         /*[HttpPost]

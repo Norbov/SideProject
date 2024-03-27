@@ -11,8 +11,12 @@ namespace SideProject.Models.Entities
 
         public virtual ApplicationUser aplicationUser { get; set; }
 
-        public int imageId { get; set; }
+        public List<int> imageIds { get; set; }
 
         public virtual ICollection<Image> Images { get; set; }
+
+        public List<int> videIds { get; set; }
+
+        public virtual ICollection<Video> Video { get; set; }
     }
 }

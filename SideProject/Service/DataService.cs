@@ -15,12 +15,12 @@ namespace SideProject.Service
     public class DataService : IDataService
     {
         private readonly AplicationDbContext _context;
-        public readonly Microsoft.AspNetCore.Hosting.IWebHostEnvironment _iWebHostEnvironment;
+        //public readonly Microsoft.AspNetCore.Hosting.IWebHostEnvironment _iWebHostEnvironment;
 
-        public DataService(AplicationDbContext context,Microsoft.AspNetCore.Hosting.IWebHostEnvironment iWebHostEnvironment)
+        public DataService(AplicationDbContext context/*,Microsoft.AspNetCore.Hosting.IWebHostEnvironment iWebHostEnvironment*/)
         {
             _context = context;
-            _iWebHostEnvironment = iWebHostEnvironment;
+            //_iWebHostEnvironment = iWebHostEnvironment;
         }
 
         /*public void UploadImage(IFormFile file, Microsoft.AspNetCore.Hosting.IWebHostEnvironment iWebHostEnvironment)
@@ -54,7 +54,23 @@ namespace SideProject.Service
                     await _context.images.AddAsync(image);
                     await _context.SaveChangesAsync();
                 }
-            } 
+            }
+
+            //int id = _context.images.FirstOrDefaultAsync(x => x.image == image.image).Result.Id;
+            /*Image imageForId = await _context.images.FirstOrDefaultAsync(x => x.image == image.image);
+
+            UploadedDatas uploadedDatas = await _context.uploads.FirstOrDefaultAsync(x => x.username == user);
+            if(uploadedDatas.imageIds == null)
+            {
+                uploadedDatas.imageIds = new List<int> { imageForId.Id };
+            }
+            else
+            {
+                uploadedDatas.imageIds.Add(imageForId.Id);
+            }
+
+            await _context.uploads.AddAsync(uploadedDatas);
+            await _context.SaveChangesAsync();*/
         }
 
         public async Task<Image> DownloadImage(int Id)

@@ -43,7 +43,7 @@ namespace SideProject.Service
 
             var claims = new List<Claim>
             {
-                new Claim(ClaimTypes.Name, applicationUser.userName)//,
+                new Claim(ClaimTypes.Name, applicationUser.UserName)//,
                                                                     //new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
             };
 
@@ -68,8 +68,8 @@ namespace SideProject.Service
         {
             var account = new ApplicationUser()
             {
-                userName = signUpModel.userName,
-                email = signUpModel.email,
+                UserName = signUpModel.userName,
+                Email = signUpModel.email,
                 password = signUpModel.password,
                 roles = new List<string> {"User"}
             };
@@ -80,11 +80,11 @@ namespace SideProject.Service
 
         public async Task<string> Login(ApplicationUser applicationUser)
         {
-            var account = await _context.accounts.FindAsync(applicationUser.userName);
+            var account = await _context.accounts.FindAsync(applicationUser.UserName);
             if (account != null && applicationUser.password == account.password)
             {
                 string token = CreateToken(account);
-                Console.WriteLine("Found " + applicationUser.userName);
+                Console.WriteLine("Found " + applicationUser.UserName);
                 Console.WriteLine("Token " + token);
                 //Response.Cookies.Append(Constans.AccessToken,token);
                 return token;

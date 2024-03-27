@@ -3,12 +3,12 @@ using Microsoft.AspNetCore.Identity;
 
 namespace SideProject.Models.Entities
 {
-    public class ApplicationUser /*: IdentityUser<int>*/
+    public class ApplicationUser : IdentityUser<int>
     {
         [Key]
-        public string userName { get; set; }
+        public string UserName { get; set; }
         [Required]
-        public string email { get; set; }
+        public string Email { get; set; }
         [Required]
         public string password { get; set; }
 
